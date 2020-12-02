@@ -3,7 +3,7 @@
 {
   'use strict';
 
-  const select = {
+  const select = { //obiekt zawierający selektory
     templateOf: {
       menuProduct: '#template-menu-product',
     },
@@ -48,11 +48,47 @@
     }
   };
 
-  const templates = {
+  const templates = { //szablony Handlebars, do których wykorzystujemy selektory z obiektu select,
     menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
   };
 
-  const app = {
+  class Product{
+    constructor(id, data){
+      const thisProduct = this;
+      thisProduct.id = id;
+      thisProduct.data = data;
+      thisProduct.renderInMenu();
+      console.log('new Product:', thisProduct)
+    }
+    renderInMenu(){
+      const thisProduct = this;
+      //generate HTML of single product(template)
+      const generateHTML = templates.menuProduct(thisProduct.data);
+      //create element DOM based on product HTML code, use utils.createElementFromHTML
+      thisProduct.element = utils.createDOMFromHTML(generateHTML);
+      // find menu container on website
+      const menuContainer = document.querySelector(select.containerOf.menu);
+      // add element DOM to found menu
+      menuContainer.appendChild(thisProduct.element); //wrzuca na koniec menu produkt
+    }
+  }
+
+  const app = { //organizacji kodu appki, tworzy nowe instancje
+    initMenu: function(){
+      const thisApp = this;
+      console.log('thisApp.data:', thisApp.data);
+
+      for(let productData in thisApp.data.products) { //(kazdy obiekt z products) przekazuje do konstruktora nie tylko nazwę prod 'np. cake' ale też ukryty obiekt: class, name, price...
+        new Product(productData, thisApp.data.products[productData]);
+      }
+    },
+
+    initData: function(){
+      const thisApp = this;
+
+      thisApp.data = dataSource;
+    },
+
     init: function(){
       const thisApp = this;
       console.log('*** App starting ***');
@@ -60,8 +96,11 @@
       console.log('classNames:', classNames);
       console.log('settings:', settings);
       console.log('templates:', templates);
+
+      thisApp.initData();
+      thisApp.initMenu();
     },
   };
 
-  app.init();
+  app.init(); //lista tresci
 }
