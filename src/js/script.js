@@ -223,7 +223,7 @@
         thisProduct.processOrder();
       });
     }
-  }
+  };
 
   class AmountWidget{
     constructor(element){
@@ -234,8 +234,8 @@
       thisWidget.setValue(thisWidget.input.value); //dodaje w input html... <input... value="1">
       thisWidget.initActions();
 
-      console.log('AmountWidget:', thisWidget);
-      console.log('constructor elements:', element);
+      //console.log('AmountWidget:', thisWidget);
+      //console.log('constructor elements:', element);
     }
 
     getElements(element){
@@ -284,7 +284,34 @@
       const event = new Event('updated');
       thisWidget.element.dispatchEvent(event);
     }
-  }
+  };
+
+  class Cart{
+    constructor(element){
+      const thisCart = this;
+      thisCart.products = [];
+      thisCart.getElements(element);
+      thisCart.initAction();
+
+      console.log('new Cart', thisCart);
+    }
+
+    getElements(element){
+      const thisCart = this;
+      thisCart.dom = {};
+      console.log(thisCart.dom);
+
+      thisCart.dom.wrapper = element;
+      thisCart.dom.toggleTrigger = element.querySelector(select.cart.toggleTrigger);
+    }
+
+    initAction(){
+      const thisCart = this;
+      thisCart.dom.toggleTrigger.addEventListener('click', function() {
+        thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
+      });
+    }
+  };
 
   const app = { //organizacji kodu appki, tworzy nowe instancje
     initMenu: function(){
@@ -302,6 +329,13 @@
       thisApp.data = dataSource;
     },
 
+    initCart: function() {
+      const thisApp = this;
+
+      const cartElem = document.querySelector(select.containerOf.cart);
+      thisApp.cart = new Cart(cartElem);
+    },
+
     init: function(){
       const thisApp = this;
       //console.log('*** App starting ***');
@@ -312,6 +346,7 @@
 
       thisApp.initData();
       thisApp.initMenu();
+      thisApp.initCart();
     },
   };
 
