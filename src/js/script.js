@@ -163,8 +163,8 @@
       thisProduct.cartButton.addEventListener('click', function(event){
         event.preventDefault();
         thisProduct.processOrder();
+        thisProduct.addToCart();
       });
-      //console.log('initOF:', thisProduct);
     }
 
     processOrder(){
@@ -223,7 +223,13 @@
         thisProduct.processOrder();
       });
     }
-  };
+
+    addToCart(){
+      thisProduct = this;
+
+      app.cart.add(thisProduct);
+    }
+  }
 
   class AmountWidget{
     constructor(element){
@@ -284,7 +290,7 @@
       const event = new Event('updated');
       thisWidget.element.dispatchEvent(event);
     }
-  };
+  }
 
   class Cart{
     constructor(element){
@@ -311,7 +317,13 @@
         thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
       });
     }
-  };
+
+    add(menuProduct){
+      //const thisCart = this;
+
+      console.log('adding product', menuProduct);
+    }
+  }
 
   const app = { //organizacji kodu appki, tworzy nowe instancje
     initMenu: function(){
