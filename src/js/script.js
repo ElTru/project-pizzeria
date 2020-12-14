@@ -321,7 +321,9 @@
     announce(){
       const thisWidget = this;
 
-      const event = new Event('updated');
+      const event = new CustomEvent('updated', {
+        bubbles: true //bubbles wbudowane w js
+      });
       thisWidget.element.dispatchEvent(event);
     }
   }
@@ -346,12 +348,19 @@
       thisCart.dom.subtotalPrice = thisCart.dom.wrapper.querySelector(select.cart.subtotalPrice);
       thisCart.dom.totalPrice = thisCart.dom.wrapper.querySelectorAll(select.cart.totalPrice);
       thisCart.dom.totalNumber = thisCart.dom.wrapper.querySelector(select.cart.totalNumber);
+
     }
 
     initActions(){
       const thisCart = this;
       thisCart.dom.toggleTrigger.addEventListener('click', function() {
         thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
+      });
+      thisCart.dom.productList.addEventListener('updated', function(){
+        thisCart.update();
+      });
+      thisCart.dom.productList.addEventListener('remove', function(){
+        thisCart.remove(event.detail.cartProduct);
       });
     }
 
@@ -379,9 +388,13 @@
         thisCart.totalNumber += product.amount;
         thisCart.subtotalPrice += product.price;
       }
-      thisCart.totalPrice = 0;
-      if (thisCart.totalPrice > 0){
+      // thisCart.totalPrice = thisCart.subtotalPrice + thisCart.deliveryFee;
+      if(thisCart.totalNumber !== 0){
         thisCart.totalPrice = thisCart.subtotalPrice + thisCart.deliveryFee;
+      }
+      else {
+        thisCart.totalPrice = 0;
+        thisCart.deliveryFee = 0;
       }
 
       thisCart.dom.totalPrice.innerHTML = thisCart.totalPrice;
@@ -394,8 +407,18 @@
       thisCart.dom.totalNumber.innerHTML = thisCart.totalNumber;
 
 
-      console.log(thisCart.dom.totalPrice);
+      //console.log(thisCart.dom.totalPrice);
       console.log('amount , cena koncowa:', thisCart.totalNumber, thisCart.totalPrice);
+    }
+
+    remove(cartProduct){
+      const thisCart = this;
+
+      const indexOfProduct = thisCart.products.indexOf(cartProduct);
+      thisCart.products.splice(indexOfProduct, 1);
+      cartProduct.dom.wrapper.remove();
+
+      thisCart.update();
     }
   }
 
@@ -412,6 +435,7 @@
 
       thisCartProduct.getElements(element);
       thisCartProduct.initAmountWidget(thisCartProduct.dom.amountWidget);
+      thisCartProduct.initActions();
       //console.log('initAmountWidget', thisCartProduct.initAmountWidget());
 
       //console.log('new Cart Product', thisCartProduct);
@@ -439,6 +463,30 @@
       });
     }
 
+    remove(){
+      const thisCartProduct = this;
+
+      const event = new CustomEvent('remove', {
+        bubbles: true,
+        detail: {
+          cartProduct: thisCartProduct, //cart musi wiedziec co dokłądnie będzie usunięte
+        },
+      });
+      thisCartProduct.dom.wrapper.dispatchEvent(event);
+    }
+
+    initActions(){
+      const thisCartProduct = this;
+
+      thisCartProduct.dom.edit.addEventListener('click', function() {
+        event.preventDefault();
+      });
+
+      thisCartProduct.dom.remove.addEventListener('click', function(event) {
+        event.preventDefault();
+        thisCartProduct.remove();
+      });
+    }
   }
 
   const app = { //organizacji kodu appki, tworzy nowe instancje
