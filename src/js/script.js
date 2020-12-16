@@ -74,7 +74,7 @@
       defaultDeliveryFee: 20,
     },
     db: {
-      url: '//localhost:3131',
+      url: 'http://localhost:3131',
       product: 'product',
       order: 'order',
     },
