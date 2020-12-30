@@ -4,20 +4,32 @@ class BaseWidget{
 
     thisWidget.dom = {};
     thisWidget.dom.wrapper = wrapperElement;
-    thisWidget.value = initialValue;
+    thisWidget.correctValue = initialValue;
   }
 
-  setValue(value){
+  get value(){
+    const thisWidget = this;
+
+    return thisWidget.correctValue;
+  }
+
+  set value(value){
     const thisWidget = this;
 
     const newValue = thisWidget.parseValue(value); //praseInt zamienia text '10' na liczbę 10
     /* TODO: Add calidation */
-    if(newValue != thisWidget.value && thisWidget.isValid(newValue)) {
-      thisWidget.value = newValue;
+    if(newValue != thisWidget.correctValue && thisWidget.isValid(newValue)) {
+      thisWidget.correctValue = newValue;
       thisWidget.announce();
     }
 
     thisWidget.renderValue();
+  }
+
+  setValue(value){ //żeby nie zmieniać setValue w Amount Widget
+    const thisWidget = this;
+
+    thisWidget.value = value;
   }
 
   parseValue(value){
@@ -33,7 +45,7 @@ class BaseWidget{
 
     thisWidget.dom.wrapper.innerHTML = thisWidget.value;
   }
-  
+
   announce(){
     const thisWidget = this;
 
