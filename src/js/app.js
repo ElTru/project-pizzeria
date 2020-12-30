@@ -1,6 +1,7 @@
 import {settings, select, classNames} from './settings.js'; //nawiasy klamrowe kiedy importujemy więcej niż jedną niedomyślna rzecz
 import Product from './components/Product.js';
 import Cart from './components/Cart.js';
+import Booking from './components/Booking.js';
 
 const app = { //organizacji kodu appki, tworzy nowe instancje
   initPages: function(){
@@ -53,6 +54,13 @@ const app = { //organizacji kodu appki, tworzy nowe instancje
     }
   },
 
+  initBooking: function() {
+    const thisApp = this;
+
+    const bookingWidgetWrapper = document.querySelector(select.containerOf.booking);
+    thisApp.Booking = new Booking (bookingWidgetWrapper);
+  },
+
   initMenu: function(){
     const thisApp = this;
 
@@ -100,6 +108,7 @@ const app = { //organizacji kodu appki, tworzy nowe instancje
     thisApp.initPages();
     thisApp.initData();
     thisApp.initCart();
+    thisApp.initBooking();
   },
 };
 
