@@ -15,7 +15,7 @@ const app = { //organizacji kodu appki, tworzy nowe instancje
     let pageMatchingHash = thisApp.pages[0].id;
 
     for(let page of thisApp.pages) {
-      if(page.id == idFromHash){
+      if(page.id === idFromHash){
         pageMatchingHash = page.id;
         break;
       }
@@ -43,22 +43,15 @@ const app = { //organizacji kodu appki, tworzy nowe instancje
     const thisApp = this;
     /* add class active to matching pages, remove from non-matching */
     for(let page of thisApp.pages){
-      page.classList.toggle(classNames.pages.active, page.id == pageId);
+      page.classList.toggle(classNames.pages.active, page.id === pageId);
     }
     /* add class "active" to matching links, remove from non-matching */
     for(let link of thisApp.navLinks){
       link.classList.toggle(
         classNames.nav.active,
-        link.getAttribute('href') == '#' + pageId
+        link.getAttribute('href') === '#' + pageId
       );
     }
-  },
-
-  initBooking: function() {
-    const thisApp = this;
-
-    const bookingWidgetWrapper = document.querySelector(select.containerOf.booking);
-    thisApp.Booking = new Booking (bookingWidgetWrapper);
   },
 
   initMenu: function(){
@@ -100,6 +93,13 @@ const app = { //organizacji kodu appki, tworzy nowe instancje
     thisApp.productList.addEventListener('add-to-cart', function(event) {
       app.cart.add(event.detail.product);
     });
+  },
+
+  initBooking: function() {
+    const thisApp = this;
+
+    const bookingWidgetWrapper = document.querySelector(select.containerOf.booking);
+    thisApp.Booking = new Booking (bookingWidgetWrapper);
   },
 
   init: function(){
