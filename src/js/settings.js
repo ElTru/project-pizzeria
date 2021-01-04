@@ -63,6 +63,11 @@ export const select = { //obiekt zawierający selektory
     peopleAmount: '.people-amount',
     hoursAmount: '.hours-amount',
     tables: '.floor-plan .table',
+    tablesAll: '.floor-plan',
+    phone: '[name="phone"]',
+    address: '[name="address"]',
+    orderButton: '.btn-secondary',
+    starters: '.starters',
   },
   nav: {
     links: '.main-nav a',
@@ -78,8 +83,10 @@ export const classNames = {
     wrapperActive: 'active',
   },
   booking: {
+    table: 'table',
     loading: 'loading',
     tableBooked: 'booked',
+    tableSelected: 'selected',
   },
   nav: {
     active: 'active',
