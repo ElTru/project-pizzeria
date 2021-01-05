@@ -167,7 +167,7 @@ class Booking{
     thisBooking.dom.phone = thisBooking.dom.wrapper.querySelector(select.booking.phone);
     thisBooking.dom.address = thisBooking.dom.wrapper.querySelector(select.booking.address);
     thisBooking.dom.orderButton = thisBooking.dom.wrapper.querySelector(select.booking.orderButton);
-    thisBooking.dom.starters = thisBooking.dom.wrapper.querySelectorAll(select.booking.starters);
+    thisBooking.dom.starters =thisBooking.dom.wrapper.querySelectorAll(select.booking.starters);
   }
 
   initTables(){
@@ -215,19 +215,19 @@ class Booking{
     const payload = {
       date: thisBooking.datePicker.value,
       hour: thisBooking.hourPicker.value,
-      table: thisBooking.selectedTable,
-      duration: thisBooking.hoursAmountWidget,
-      ppl: thisBooking.peopleAmountWidget,
+      table: parseInt(thisBooking.selectedTable),
+      duration: thisBooking.dom.hoursAmount.value,
+      ppl: thisBooking.dom.peopleAmount.value,
       starters: [],
       phone: thisBooking.dom.phone.value,
       address: thisBooking.dom.address.value,
     };
 
-    for (let starter of thisBooking.dom.starters){ //?????
-      if (starter.checked == true){
-        booking.starters.push[starter.value];
-      }
+    for (let starter of thisBooking.starters){
+      payload.starters.push(starter);
     }
+
+    console.log(payload);
 
     const options = {
       method: 'POST',
@@ -238,14 +238,9 @@ class Booking{
     };
 
     fetch(url, options)
-      .then(function(response){
-        return response.json();
-      })
-      .then(function(parsedResponse){
-        console.log('parsedResponse',parsedResponse);
-      });
-
-    console.log(thisBooking.booked);
+      .then(thisBooking.makeBooked(payload.date, payload.hour, parseInt(payload.table), payload.duration))
+      .then(console.log(thisBooking.booked))
+      .then(location.reload());
   }
 
   initWidgets(){
