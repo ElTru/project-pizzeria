@@ -167,7 +167,7 @@ class Booking{
     thisBooking.dom.phone = thisBooking.dom.wrapper.querySelector(select.booking.phone);
     thisBooking.dom.address = thisBooking.dom.wrapper.querySelector(select.booking.address);
     thisBooking.dom.orderButton = thisBooking.dom.wrapper.querySelector(select.booking.orderButton);
-    thisBooking.dom.starters =thisBooking.dom.wrapper.querySelectorAll(select.booking.starters);
+    thisBooking.dom.starters = thisBooking.dom.wrapper.querySelector(select.booking.starters);
   }
 
   initTables(){
@@ -196,7 +196,7 @@ class Booking{
         thisBooking.selectedTable = tableNumber;
       }
       else if(!clickedElement.classList.contains(classNames.booking.tableBooked)
-      && clickedElement.classList.containis(classNames.booking.tableSelected))
+      && clickedElement.classList.contains(classNames.booking.tableSelected))
       {
         clickedElement.classList.remove(classNames.booking.tableSelected);
         thisBooking.selectedTable = 0;
@@ -216,8 +216,8 @@ class Booking{
       date: thisBooking.datePicker.value,
       hour: thisBooking.hourPicker.value,
       table: parseInt(thisBooking.selectedTable),
-      duration: thisBooking.dom.hoursAmount.value,
-      ppl: thisBooking.dom.peopleAmount.value,
+      duration: thisBooking.hoursAmount.dom.input.value,
+      ppl: thisBooking.peopleAmount.dom.input.value,
       starters: [],
       phone: thisBooking.dom.phone.value,
       address: thisBooking.dom.address.value,
@@ -265,6 +265,15 @@ class Booking{
     thisBooking.dom.orderButton.addEventListener('click', function(event){
       event.preventDefault();
       thisBooking.sendBooking();
+    });
+
+    thisBooking.dom.starters.addEventListener('click', function(event){
+      const clickedElement = event.target;
+      if(clickedElement.tagName == 'INPUT' && clickedElement.type == 'checkbox' && clickedElement.name == 'starter'){
+        if(clickedElement.checked){
+          thisBooking.starters.push(clickedElement.value);
+        }
+      }
     });
 
     thisBooking.dom.wrapper.addEventListener('updated', function(){
