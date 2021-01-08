@@ -274,7 +274,7 @@ class Booking{
           thisBooking.starters.push(clickedElement.value);
         }
       }
-    });
+    }); 
 
     thisBooking.dom.wrapper.addEventListener('updated', function(){
       thisBooking.updateDOM();

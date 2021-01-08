@@ -2,6 +2,7 @@ import {settings, select, classNames} from './settings.js'; //nawiasy klamrowe k
 import Product from './components/Product.js';
 import Cart from './components/Cart.js';
 import Booking from './components/Booking.js';
+import Home from './components/Home.js';
 
 const app = { //organizacji kodu appki, tworzy nowe instancje
   initPages: function(){
@@ -102,6 +103,13 @@ const app = { //organizacji kodu appki, tworzy nowe instancje
     thisApp.Booking = new Booking (bookingWidgetWrapper);
   },
 
+  initHome: function() {
+    const thisApp = this;
+
+    const homeWidgetWrapper = document.querySelector(select.containerOf.home);
+    thisApp.Home = new Home (homeWidgetWrapper);
+  },
+
   init: function(){
     const thisApp = this;
 
@@ -109,6 +117,7 @@ const app = { //organizacji kodu appki, tworzy nowe instancje
     thisApp.initData();
     thisApp.initCart();
     thisApp.initBooking();
+    thisApp.initHome();
   },
 };
 
