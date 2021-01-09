@@ -1,4 +1,5 @@
 import {templates} from './../settings.js';
+//import Carousel from './Carousel.js';
 
 class Home {
   constructor(element){
