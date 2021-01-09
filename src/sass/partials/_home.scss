@@ -4,4 +4,80 @@
   background: $color-light;
   border-bottom: 1px solid lighten($color-dark, 70%);
   border-radius: $radius;
+
+  a {
+    color: $color-main;
+  }
+}
+
+.home-container{
+  h2{
+    font-size: 26px;
+    font-family: $font-header;
+    font-weight: $font-semibold;
+    text-transform: uppercase;
+  }
+
+  .options-row{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-item: center;
+    width: 100%;
+    text-align: center;
+
+    .options-box{
+      position: relative;
+      background-size: cover;
+      height: 140px;
+      width: 300px;
+      border-radius: 1%;
+      color: white;
+      cursor: pointer;
+      margin: 0;
+      padding: 0;
+
+      h2{
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    .options-box:hover > h2 {
+      margin-top: -8px;
+      transition-timing-function: ease-in;
+      transition-property: margin-top;
+      transition-duration: 0.25s;
+      //transition: $transition;
+    }
+
+    .order-online{
+      background-image: url(../../images/home-page/pizza-1.jpg);
+    }
+
+    .book-a-table{
+      background-image: url(../../images/home-page/pizza-2.jpg);
+    }
+  }
+  
+  .banner{
+    height: 140px;
+    margin: 4px 0 64px;
+    background-color: $color-main;
+    text-align: center;
+    color: white;
+    padding: 15px 0;
+
+    h2{
+      margin: 30px 0 0;
+    }
+
+    h3{
+      font-weight: $font-light;
+      margin: 0;
+    }
+  }
 }
