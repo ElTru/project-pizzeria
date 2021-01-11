@@ -79,8 +79,7 @@ export const select = { //obiekt zawierający selektory
     starters: '.starters',
   },
   nav: {
-    links: '.main-nav a',
-    //buttons: '.link-wrapper a',
+    links: '.main-nav a', //
   },
 };
 
