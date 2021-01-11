@@ -132,10 +132,11 @@
     .gallery-box{
       position: relative;
       background-size: cover;
-      height: 220px;
-      flex: 33%;
+      height: 210px;
+      flex: 30%;
       cursor: pointer;
-      padding-right: 4px;
+      margin-right: 4px;
+      margin-top: 4px;
     }
 
     .g1 {
@@ -150,33 +151,61 @@
       background-image: url(../../images/home-page/pizza-6.jpg);
     }
 
-    .overlay{
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: black;
+    .g4 {
+      background-image: url(../../images/home-page/pizza-7.jpg);
+    }
+
+    .g5 {
+      background-image: url(../../images/home-page/pizza-8.jpg);
+    }
+
+    .g6 {
+      background-image: url(../../images/home-page/pizza-9.jpg);
     }
 
     i{
+      position: absolute;
       color: white;
+      opacity: 1;
       font-size: 20px;
       margin-right: 15px;
       cursor: pointer;
       display: none;
+      z-index: 2;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .left {
+      left: 40%;
+    }
+
+    .right {
+      left: 60%;
+    }
+
+    .gallery-box:hover > i {
+      display: inline-block;
+    }
+
+    .gallery-box::after{
+      content: "";
+      display: none;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      opacity: 0.3;
+      z-index: 1;
+    }
+
+    .gallery-box:hover::after {
+      display: block;
+    }
+
+    i:hover {
+      color: $color-main;
     }
   }
-
-  i:hover {
-    color: $color-main;
-  }
-
-  .box:hover > .overlay{
-    display: block;
-  }
-
-  .overlay:hover i{
-    display: inline-block;
-  }
-
 }

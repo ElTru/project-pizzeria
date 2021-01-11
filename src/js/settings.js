@@ -27,11 +27,18 @@ export const select = { //obiekt zawierający selektory
     amountWidget: '.widget-amount',
     cartButton: '[href="#add-to-cart"]',
   },
+  home: {
+    orderPageLink: '.order-online',
+    bookPageLink: '.book-a-table',
+  },
   widgets: {
     amount: {
       input: 'input.amount', // CODE CHANGED
       linkDecrease: 'a[href="#less"]',
       linkIncrease: 'a[href="#more"]',
+    },
+    carousel: {
+      wrapper: '.carousel',
     },
     datePicker: {
       wrapper: '.date-picker',
