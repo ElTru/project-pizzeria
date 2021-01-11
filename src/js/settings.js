@@ -3,7 +3,7 @@
 export const select = { //obiekt zawierający selektory
   templateOf: {
     menuProduct: '#template-menu-product', //scrypt  z type=handlebars
-    cartProduct: '#template-cart-product', // CODE ADDED
+    cartProduct: '#template-cart-product',
     bookingWidget: '#template-booking-widget',
     homeWidget: '#template-home-widget',
   },
